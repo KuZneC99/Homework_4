@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_matrix(int** matrix, int N); //печатает матрицу(сделал для себя, можешь удалить)
-int check_symmetry(int** matrix, int N); //проверяет, симметричную ли матрицу ты ввел
-void create_graphviz(int** matrix, int N); //создает файл graphviz в папке с этим файлом с названием new_graph.dot
-void sort_top(int** matrix, int N); //сортирует в порядке убывания вершины с четными степенями
-//сами функции в конце программы
+void print_matrix(int** matrix, int N);
+int check_symmetry(int** matrix, int N); 
+void create_graphviz(int** matrix, int N); 
+void sort_top(int** matrix, int N);
 
-struct Top // эта структура используется в ф-ии sort_top и хранит в себе вершину и ее степень
+
+struct Top 
 {
 	int name_top;
 	int degree_top;
@@ -21,7 +21,7 @@ int main()
 	int** mass = (int**)calloc(i + 1, sizeof(int*));
 	mass[i] = (int*)calloc(i + 1, sizeof(int));
 	
-	printf("Enter the adjacency matrix for the graph:\n");            //заполняем матрицу смежности
+	printf("Enter the adjacency matrix for the graph:\n");           
 
 	while ((symbol = getchar()) != '\n')
 	{
@@ -58,16 +58,15 @@ int main()
 		}
 	}
 	
-	if (check_symmetry(mass, size))     //проверяем на симметричность
+	if (check_symmetry(mass, size))     //ГЇГ°Г®ГўГҐГ°ГїГҐГ¬ Г­Г  Г±ГЁГ¬Г¬ГҐГІГ°ГЁГ·Г­Г®Г±ГІГј
 	{
 		printf("Your matrix not symmetrical! Try again!\n");
 		return 0;
 	}
 
-	create_graphviz(mass, size);           //создаем файл в graphviz
-	sort_top(mass, size);                  //сортируем вершины в порядке убывания четных степеней
-
-	for (int i = 0; i < size; i++)         //очищаем за собой динамическую память
+	create_graphviz(mass, size);           
+	sort_top(mass, size);                  
+	for (int i = 0; i < size; i++)        
 	{
 		free(mass[i]);
 	}
@@ -107,10 +106,10 @@ int check_symmetry(int** matrix, int N)
 void create_graphviz(int** matrix, int N)
 {
 	FILE* file_graph;
-	file_graph = fopen("new_graph.dot", "w+");               //создаем файл или открываем файл для записи     
+	file_graph = fopen("new_graph.dot", "w+");                
 	fprintf(file_graph, "graph new{\n");
 
-	for (int i = 0; i < N; i++)                              //записываем в него веершины
+	for (int i = 0; i < N; i++)                              
 	{
 		for (int j = 0; j <= i; j++)
 		{
@@ -122,15 +121,15 @@ void create_graphviz(int** matrix, int N)
 	}
 
 	fprintf(file_graph, "}");
-	fclose(file_graph);                           //закрываем файл
+	fclose(file_graph);                           
 }
 
 void sort_top(int** matrix, int N)
 {
 	int size_array = 0;
-	struct Top* array = (struct Top*)calloc(size_array + 1, sizeof(struct Top));    //создаем динамический массив структуры Top
+	struct Top* array = (struct Top*)calloc(size_array + 1, sizeof(struct Top));    
 
-	for (int i = 0; i < N; i++)           //заполняем динамический массив структуры Top
+	for (int i = 0; i < N; i++)          
 	{
 		int step = 0;
 		for (int j = 0; j < N; j++)
@@ -154,7 +153,7 @@ void sort_top(int** matrix, int N)
 		}
 	}
 
-	for (int i = 1; i < size_array; i++)               //сортируем динамический массив структуры Top
+	for (int i = 1; i < size_array; i++)               
 	{
 		for (int j = i; j > 0; j--)
 		{
@@ -172,11 +171,11 @@ void sort_top(int** matrix, int N)
 		}
 	}
 	printf("\nSorted tops by even degrees:\n");
-	for (int i = 0; i < size_array; i++)                //выводим результат
+	for (int i = 0; i < size_array; i++)               
 	{
 		printf("top %d: %d\n", array[i].name_top, array[i].degree_top);
 	}
 	printf("\n");
 
-	free(array);                                        //чистим за собой память, выделенную динамически
+	free(array);                                        //Г·ГЁГ±ГІГЁГ¬ Г§Г  Г±Г®ГЎГ®Г© ГЇГ Г¬ГїГІГј, ГўГ»Г¤ГҐГ«ГҐГ­Г­ГіГѕ Г¤ГЁГ­Г Г¬ГЁГ·ГҐГ±ГЄГЁ
 }
