@@ -58,7 +58,7 @@ int main()
 		}
 	}
 	
-	if (check_symmetry(mass, size))     //ïðîâåðÿåì íà ñèììåòðè÷íîñòü
+	if (check_symmetry(mass, size))    
 	{
 		printf("Your matrix not symmetrical! Try again!\n");
 		return 0;
@@ -177,5 +177,5 @@ void sort_top(int** matrix, int N)
 	}
 	printf("\n");
 
-	free(array);                                        //÷èñòèì çà ñîáîé ïàìÿòü, âûäåëåííóþ äèíàìè÷åñêè
+	free(array);                                    
 }
